@@ -1,120 +1,61 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
-#include "figure.h"
 #include <memory>
 #include <stdexcept>
-#include <iostream>
 
 template<typename T>
 class Array {
-private:
-    std::shared_ptr<T[]> data;
-    size_t current_size;
-    size_t current_capacity;
+    std::shared_ptr<T[]> data_;
+    size_t size_;
+    size_t cap_;
 
-    void resize_with_move(size_t new_capacity) {
-        auto new_data = std::shared_ptr<T[]>(new T[new_capacity]);
-        for (size_t i = 0; i < current_size; ++i) {
-            new_data[i] = std::move(data[i]);
+    void resize() {
+        size_t new_cap = cap_ * 2;
+        auto new_data = std::shared_ptr<T[]>(new T[new_cap]);
+        for (size_t i = 0; i < size_; i++) {
+            new_data[i] = std::move(data_[i]);
         }
-        data = std::move(new_data);
-        current_capacity = new_capacity;
+        data_ = std::move(new_data);
+        cap_ = new_cap;
     }
 
 public:
-    Array() : current_size(0), current_capacity(10) {
-        data = std::shared_ptr<T[]>(new T[current_capacity]);
-    }
-    
-    Array(size_t capacity) : current_size(0), current_capacity(capacity) {
-        data = std::shared_ptr<T[]>(new T[current_capacity]);
-    }
-    
-    Array(const Array& other) : current_size(other.current_size), current_capacity(other.current_capacity) {
-        data = std::shared_ptr<T[]>(new T[current_capacity]);
-        for (size_t i = 0; i < current_size; ++i) {
-            data[i] = other.data[i];
-        }
-    }
-    
-    Array(Array&& other) noexcept 
-        : data(std::move(other.data)), 
-          current_size(other.current_size), 
-          current_capacity(other.current_capacity) {
-        other.current_size = 0;
-        other.current_capacity = 0;
-    }
-    
-    ~Array() = default;
-    
-    Array& operator=(const Array& other) {
-        if (this != &other) {
-            current_size = other.current_size;
-            current_capacity = other.current_capacity;
-            data = std::shared_ptr<T[]>(new T[current_capacity]);
-            for (size_t i = 0; i < current_size; ++i) {
-                data[i] = other.data[i];
-            }
-        }
-        return *this;
-    }
-    
-    Array& operator=(Array&& other) noexcept {
-        if (this != &other) {
-            data = std::move(other.data);
-            current_size = other.current_size;
-            current_capacity = other.current_capacity;
-            other.current_size = 0;
-            other.current_capacity = 0;
-        }
-        return *this;
+    Array() : size_(0), cap_(10) {
+        data_ = std::shared_ptr<T[]>(new T[cap_]);
     }
     
     void add(const T& item) {
-        if (current_size >= current_capacity) {
-            resize_with_move(current_capacity * 2);
+        if (size_ >= cap_) {
+            resize();
         }
-        data[current_size] = item;
-        current_size++;
+        data_[size_] = item;
+        size_++;
     }
     
-    void add(T&& item) {
-        if (current_size >= current_capacity) {
-            resize_with_move(current_capacity * 2);
+    void remove(size_t idx) {
+        if (idx >= size_) {
+            throw std::out_of_range("bad index");
         }
-        data[current_size] = std::move(item);
-        current_size++;
+        for (size_t i = idx; i < size_-1; i++) {
+            data_[i] = std::move(data_[i+1]);
+        }
+        size_--;
     }
     
-    void remove_at(size_t index) {
-        if (index >= current_size) {
-            throw std::out_of_range("Index out of range in array remove");
+    T& get(size_t idx) {
+        if (idx >= size_) {
+            throw std::out_of_range("bad index");
         }
-        for (size_t i = index; i < current_size - 1; ++i) {
-            data[i] = std::move(data[i + 1]);
-        }
-        current_size--;
+        return data_[idx];
     }
     
-    T& operator[](size_t index) {
-        if (index >= current_size) {
-            throw std::out_of_range("Index out of range in array access");
-        }
-        return data[index];
+    T& operator[](size_t idx) {
+        return get(idx);
     }
     
-    const T& operator[](size_t index) const {
-        if (index >= current_size) {
-            throw std::out_of_range("Index out of range in array const access");
-        }
-        return data[index];
-    }
-    
-    size_t size() const { return current_size; }
-    size_t capacity() const { return current_capacity; }
-    bool empty() const { return current_size == 0; }
-    void clear() { current_size = 0; }
+    size_t size() const { return size_; }
+    bool empty() const { return size_ == 0; }
 };
 
 #endif

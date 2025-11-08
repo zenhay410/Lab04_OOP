@@ -1,5 +1,0 @@
-if(EXISTS "/mnt/c/Users/Son/lab04/build/geometry_tests[1]_tests.cmake")
-  include("/mnt/c/Users/Son/lab04/build/geometry_tests[1]_tests.cmake")
-else()
-  add_test(geometry_tests_NOT_BUILT geometry_tests_NOT_BUILT)
-endif()

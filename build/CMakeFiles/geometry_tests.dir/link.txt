@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall -Wextra -Werror -Wshadow CMakeFiles/geometry_tests.dir/test/tests.cpp.o -o geometry_tests  lib/libgtest_main.a lib/libgtest.a 

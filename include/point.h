@@ -1,62 +1,42 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include <concepts>
-#include <memory>
 #include <iostream>
-#include <type_traits>
 
 template<typename T>
-concept ScalarType = std::is_scalar_v<T>;
-
-template<ScalarType T>
 class Point {
-private:
-    T x_val, y_val;
-
+    T x_, y_;
 public:
-    Point() noexcept : x_val(0), y_val(0) {}
-    Point(T x, T y) noexcept : x_val(x), y_val(y) {}
-    Point(const Point& other) noexcept : x_val(other.x_val), y_val(other.y_val) {}
-    Point(Point&& other) noexcept : x_val(std::move(other.x_val)), y_val(std::move(other.y_val)) {}
-    ~Point() noexcept = default;
+    Point() : x_(0), y_(0) {}
+    Point(T x, T y) : x_(x), y_(y) {}
+    Point(const Point& other) : x_(other.x_), y_(other.y_) {}
+    Point(Point&& other) : x_(std::move(other.x_)), y_(std::move(other.y_)) {}
+    ~Point() = default;
     
-    Point& operator=(const Point& other) noexcept {
+    Point& operator=(const Point& other) {
         if (this != &other) {
-            x_val = other.x_val;
-            y_val = other.y_val;
+            x_ = other.x_;
+            y_ = other.y_;
         }
         return *this;
     }
     
-    Point& operator=(Point&& other) noexcept {
-        if (this != &other) {
-            x_val = std::move(other.x_val);
-            y_val = std::move(other.y_val);
-        }
-        return *this;
+    T x() const { return x_; }
+    T y() const { return y_; }
+    void set_x(T x) { x_ = x; }
+    void set_y(T y) { y_ = y; }
+    
+    bool operator==(const Point& other) const {
+        return x_ == other.x_ && y_ == other.y_;
     }
     
-    T x() const noexcept { return x_val; }
-    T y() const noexcept { return y_val; }
-    void set_x(T x) noexcept { x_val = x; }
-    void set_y(T y) noexcept { y_val = y; }
-    
-    bool operator==(const Point& other) const noexcept {
-        return x_val == other.x_val && y_val == other.y_val;
-    }
-    
-    bool operator!=(const Point& other) const noexcept {
-        return !(*this == other);
-    }
-    
-    friend std::ostream& operator<<(std::ostream& os, const Point& pt) {
-        os << "(" << pt.x_val << ", " << pt.y_val << ")";
+    friend std::ostream& operator<<(std::ostream& os, const Point& p) {
+        os << "(" << p.x_ << "," << p.y_ << ")";
         return os;
     }
 };
 
-template<ScalarType T>
+template<typename T>
 using PointPtr = std::unique_ptr<Point<T>>;
 
 #endif

@@ -162,30 +162,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named geometry_app
+# Target rules for targets named main
 
 # Build rule for target.
-geometry_app: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 geometry_app
-.PHONY : geometry_app
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-geometry_app/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_app.dir/build.make CMakeFiles/geometry_app.dir/build
-.PHONY : geometry_app/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
 #=============================================================================
-# Target rules for targets named geometry_tests
+# Target rules for targets named tests
 
 # Build rule for target.
-geometry_tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 geometry_tests
-.PHONY : geometry_tests
+tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests
+.PHONY : tests
 
 # fast build rule for target.
-geometry_tests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_tests.dir/build.make CMakeFiles/geometry_tests.dir/build
-.PHONY : geometry_tests/fast
+tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
+.PHONY : tests/fast
 
 #=============================================================================
 # Target rules for targets named gmock
@@ -244,7 +244,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_app.dir/build.make CMakeFiles/geometry_app.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -252,7 +252,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_app.dir/build.make CMakeFiles/geometry_app.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -260,7 +260,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_app.dir/build.make CMakeFiles/geometry_app.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 test/tests.o: test/tests.cpp.o
@@ -268,7 +268,7 @@ test/tests.o: test/tests.cpp.o
 
 # target to build an object file
 test/tests.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_tests.dir/build.make CMakeFiles/geometry_tests.dir/test/tests.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/tests.cpp.o
 .PHONY : test/tests.cpp.o
 
 test/tests.i: test/tests.cpp.i
@@ -276,7 +276,7 @@ test/tests.i: test/tests.cpp.i
 
 # target to preprocess a source file
 test/tests.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_tests.dir/build.make CMakeFiles/geometry_tests.dir/test/tests.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/tests.cpp.i
 .PHONY : test/tests.cpp.i
 
 test/tests.s: test/tests.cpp.s
@@ -284,7 +284,7 @@ test/tests.s: test/tests.cpp.s
 
 # target to generate assembly for a file
 test/tests.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/geometry_tests.dir/build.make CMakeFiles/geometry_tests.dir/test/tests.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/tests.cpp.s
 .PHONY : test/tests.cpp.s
 
 # Help Target
@@ -299,12 +299,12 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... geometry_app"
-	@echo "... geometry_tests"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... main"
+	@echo "... tests"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

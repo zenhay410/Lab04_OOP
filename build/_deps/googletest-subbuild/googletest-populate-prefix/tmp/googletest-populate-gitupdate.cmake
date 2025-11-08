@@ -284,7 +284,7 @@ set(init_submodules "TRUE")
 if(init_submodules)
   execute_process(
     COMMAND "/usr/bin/git"
-            --git-dir=.git -c;http.sslVerify=false
+            --git-dir=.git 
             submodule update --recursive --init 
     WORKING_DIRECTORY "/mnt/c/Users/Son/lab04/build/_deps/googletest-src"
     COMMAND_ERROR_IS_FATAL ANY

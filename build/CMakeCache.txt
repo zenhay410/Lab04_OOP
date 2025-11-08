@@ -199,7 +199,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=geometry_oop_lab
+CMAKE_PROJECT_NAME:STATIC=shapes
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.15.0
@@ -313,15 +313,6 @@ GTEST_HAS_ABSL:BOOL=OFF
 INSTALL_GTEST:BOOL=ON
 
 //Value Computed by CMake
-geometry_oop_lab_BINARY_DIR:STATIC=/mnt/c/Users/Son/lab04/build
-
-//Value Computed by CMake
-geometry_oop_lab_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-geometry_oop_lab_SOURCE_DIR:STATIC=/mnt/c/Users/Son/lab04
-
-//Value Computed by CMake
 gmock_BINARY_DIR:STATIC=/mnt/c/Users/Son/lab04/build/_deps/googletest-build/googlemock
 
 //Value Computed by CMake
@@ -362,10 +353,19 @@ gtest_disable_pthreads:BOOL=OFF
 
 //Use shared (DLL) run-time lib even when Google Test is built
 // as static lib.
-gtest_force_shared_crt:BOOL=ON
+gtest_force_shared_crt:BOOL=OFF
 
 //Build gtest with internal symbols hidden in shared libraries.
 gtest_hide_internal_symbols:BOOL=OFF
+
+//Value Computed by CMake
+shapes_BINARY_DIR:STATIC=/mnt/c/Users/Son/lab04/build
+
+//Value Computed by CMake
+shapes_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+shapes_SOURCE_DIR:STATIC=/mnt/c/Users/Son/lab04
 
 
 ########################
