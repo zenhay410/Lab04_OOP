@@ -6,56 +6,56 @@
 
 template<typename T>
 class Array {
-    std::shared_ptr<T[]> data_;
-    size_t size_;
-    size_t cap_;
+    std::shared_ptr<T[]> d;
+    size_t s;
+    size_t c;
 
     void resize() {
-        size_t new_cap = cap_ * 2;
-        auto new_data = std::shared_ptr<T[]>(new T[new_cap]);
-        for (size_t i = 0; i < size_; i++) {
-            new_data[i] = std::move(data_[i]);
+        size_t nc = c * 2;
+        auto nd = std::shared_ptr<T[]>(new T[nc]);
+        for (size_t i = 0; i < s; i++) {
+            nd[i] = std::move(d[i]);
         }
-        data_ = std::move(new_data);
-        cap_ = new_cap;
+        d = std::move(nd);
+        c = nc;
     }
 
 public:
-    Array() : size_(0), cap_(10) {
-        data_ = std::shared_ptr<T[]>(new T[cap_]);
+    Array() : s(0), c(10) {
+        d = std::shared_ptr<T[]>(new T[c]);
     }
     
     void add(const T& item) {
-        if (size_ >= cap_) {
+        if (s >= c) {
             resize();
         }
-        data_[size_] = item;
-        size_++;
+        d[s] = item;
+        s++;
     }
     
     void remove(size_t idx) {
-        if (idx >= size_) {
-            throw std::out_of_range("bad index");
+        if (idx >= s) {
+            throw std::out_of_range("bad idx");
         }
-        for (size_t i = idx; i < size_-1; i++) {
-            data_[i] = std::move(data_[i+1]);
+        for (size_t i = idx; i < s-1; i++) {
+            d[i] = std::move(d[i+1]);
         }
-        size_--;
+        s--;
     }
     
     T& get(size_t idx) {
-        if (idx >= size_) {
-            throw std::out_of_range("bad index");
+        if (idx >= s) {
+            throw std::out_of_range("bad idx");
         }
-        return data_[idx];
+        return d[idx];
     }
     
     T& operator[](size_t idx) {
         return get(idx);
     }
     
-    size_t size() const { return size_; }
-    bool empty() const { return size_ == 0; }
+    size_t size() const { return s; }
+    bool empty() const { return s == 0; }
 };
 
 #endif

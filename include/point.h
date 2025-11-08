@@ -9,14 +9,14 @@ class Point {
 public:
     Point() : x_(0), y_(0) {}
     Point(T x, T y) : x_(x), y_(y) {}
-    Point(const Point& other) : x_(other.x_), y_(other.y_) {}
-    Point(Point&& other) : x_(std::move(other.x_)), y_(std::move(other.y_)) {}
+    Point(const Point& o) : x_(o.x_), y_(o.y_) {}
+    Point(Point&& o) : x_(std::move(o.x_)), y_(std::move(o.y_)) {}
     ~Point() = default;
     
-    Point& operator=(const Point& other) {
-        if (this != &other) {
-            x_ = other.x_;
-            y_ = other.y_;
+    Point& operator=(const Point& o) {
+        if (this != &o) {
+            x_ = o.x_;
+            y_ = o.y_;
         }
         return *this;
     }
@@ -26,8 +26,8 @@ public:
     void set_x(T x) { x_ = x; }
     void set_y(T y) { y_ = y; }
     
-    bool operator==(const Point& other) const {
-        return x_ == other.x_ && y_ == other.y_;
+    bool operator==(const Point& o) const {
+        return x_ == o.x_ && y_ == o.y_;
     }
     
     friend std::ostream& operator<<(std::ostream& os, const Point& p) {

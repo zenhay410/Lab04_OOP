@@ -8,43 +8,43 @@
 
 using namespace std;
 
-void clearInput() {
+void clearIn() {
     cin.clear();
     cin.ignore(10000, '\n');
 }
 
-double readDouble(string msg) {
-    double val;
+double readD(string m) {
+    double v;
     while (true) {
-        cout << msg;
-        cin >> val;
-        if (!cin.fail() && val > 0) {
-            clearInput();
-            return val;
+        cout << m;
+        cin >> v;
+        if (!cin.fail() && v > 0) {
+            clearIn();
+            return v;
         }
-        cout << "error ";
-        clearInput();
+        cout << "err ";
+        clearIn();
     }
 }
 
-int readInt(string msg, int min, int max) {
-    int val;
+int readI(string m, int mn, int mx) {
+    int v;
     while (true) {
-        cout << msg;
-        cin >> val;
-        if (!cin.fail() && val >= min && val < max) {
-            clearInput();
-            return val;
+        cout << m;
+        cin >> v;
+        if (!cin.fail() && v >= mn && v < mx) {
+            clearIn();
+            return v;
         }
-        cout << "error ";
-        clearInput();
+        cout << "err ";
+        clearIn();
     }
 }
 
 void showMenu() {
-    cout << "\n1. Add pentagon\n";
-    cout << "2. Add hexagon\n";
-    cout << "3. Add octagon\n";
+    cout << "\n1. Add pent\n";
+    cout << "2. Add hex\n";
+    cout << "3. Add oct\n";
     cout << "4. Show all\n";
     cout << "5. Delete\n";
     cout << "6. Total area\n";
@@ -54,115 +54,115 @@ void showMenu() {
     cout << "Choice: ";
 }
 
-void addPentagon(Array<FigurePtr<double>>& arr) {
-    double x = readDouble("Center X: ");
-    double y = readDouble("Center Y: ");
-    double r = readDouble("Radius: ");
-    arr.add(make_shared<Pentagon<double>>(x, y, r));
-    cout << "Added\n";
+void addPent(Array<FigurePtr<double>>& a) {
+    double x = readD("X: ");
+    double y = readD("Y: ");
+    double r = readD("R: ");
+    a.add(make_shared<Pentagon<double>>(x, y, r));
+    cout << "OK\n";
 }
 
-void addHexagon(Array<FigurePtr<double>>& arr) {
-    double x = readDouble("Center X: ");
-    double y = readDouble("Center Y: ");
-    double r = readDouble("Radius: ");
-    arr.add(make_shared<Hexagon<double>>(x, y, r));
-    cout << "Added\n";
+void addHex(Array<FigurePtr<double>>& a) {
+    double x = readD("X: ");
+    double y = readD("Y: ");
+    double r = readD("R: ");
+    a.add(make_shared<Hexagon<double>>(x, y, r));
+    cout << "OK\n";
 }
 
-void addOctagon(Array<FigurePtr<double>>& arr) {
-    double x = readDouble("Center X: ");
-    double y = readDouble("Center Y: ");
-    double r = readDouble("Radius: ");
-    arr.add(make_shared<Octagon<double>>(x, y, r));
-    cout << "Added\n";
+void addOct(Array<FigurePtr<double>>& a) {
+    double x = readD("X: ");
+    double y = readD("Y: ");
+    double r = readD("R: ");
+    a.add(make_shared<Octagon<double>>(x, y, r));
+    cout << "OK\n";
 }
 
-void showAll(Array<FigurePtr<double>>& arr) {
-    if (arr.empty()) {
+void showAll(Array<FigurePtr<double>>& a) {
+    if (a.empty()) {
         cout << "Empty\n";
         return;
     }
-    for (size_t i = 0; i < arr.size(); i++) {
-        cout << i << ". " << arr[i]->type();
-        cout << " center: " << arr[i]->center();
-        cout << " area: " << arr[i]->area() << endl;
+    for (size_t i = 0; i < a.size(); i++) {
+        cout << i << ". " << a[i]->type();
+        cout << " c: " << a[i]->center();
+        cout << " a: " << a[i]->area() << endl;
     }
 }
 
-void deleteFig(Array<FigurePtr<double>>& arr) {
-    if (arr.empty()) {
+void delFig(Array<FigurePtr<double>>& a) {
+    if (a.empty()) {
         cout << "Empty\n";
         return;
     }
-    showAll(arr);
-    int idx = readInt("Index: ", 0, arr.size());
+    showAll(a);
+    int idx = readI("Idx: ", 0, a.size());
     try {
-        arr.remove(idx);
-        cout << "Deleted\n";
+        a.remove(idx);
+        cout << "Del\n";
     } catch (...) {
-        cout << "Error\n";
+        cout << "Err\n";
     }
 }
 
-void totalArea(Array<FigurePtr<double>>& arr) {
-    if (arr.empty()) {
+void totalArea(Array<FigurePtr<double>>& a) {
+    if (a.empty()) {
         cout << "Empty\n";
         return;
     }
     double sum = 0;
-    for (size_t i = 0; i < arr.size(); i++) {
-        sum += arr[i]->area();
+    for (size_t i = 0; i < a.size(); i++) {
+        sum += a[i]->area();
     }
-    cout << "Total area: " << sum << endl;
+    cout << "Total: " << sum << endl;
 }
 
-void compare(Array<FigurePtr<double>>& arr) {
-    if (arr.size() < 2) {
-        cout << "Need 2 figures\n";
+void compare(Array<FigurePtr<double>>& a) {
+    if (a.size() < 2) {
+        cout << "Need 2\n";
         return;
     }
-    showAll(arr);
-    int i1 = readInt("First: ", 0, arr.size());
-    int i2 = readInt("Second: ", 0, arr.size());
-    auto& f1 = *arr[i1];
-    auto& f2 = *arr[i2];
+    showAll(a);
+    int i1 = readI("First: ", 0, a.size());
+    int i2 = readI("Second: ", 0, a.size());
+    auto& f1 = *a[i1];
+    auto& f2 = *a[i2];
     cout << f1.type() << " < " << f2.type() << ": " << (f1 < f2) << endl;
     cout << "Equal: " << (f1 == f2) << endl;
 }
 
-void demo(Array<FigurePtr<double>>& arr) {
-    arr.add(make_shared<Pentagon<double>>(0, 0, 3));
-    arr.add(make_shared<Hexagon<double>>(2, 1, 2.5));
-    arr.add(make_shared<Octagon<double>>(-1, -2, 4));
-    cout << "Demo figures added\n";
-    showAll(arr);
+void demo(Array<FigurePtr<double>>& a) {
+    a.add(make_shared<Pentagon<double>>(0, 0, 3));
+    a.add(make_shared<Hexagon<double>>(2, 1, 2.5));
+    a.add(make_shared<Octagon<double>>(-1, -2, 4));
+    cout << "Demo added\n";
+    showAll(a);
 }
 
 int main() {
-    cout << "Shapes program\n";
+    cout << "Shapes lab\n";
     
     Array<FigurePtr<double>> arr;
-    int choice;
+    int ch;
     
     do {
         showMenu();
-        cin >> choice;
-        clearInput();
+        cin >> ch;
+        clearIn();
         
-        switch (choice) {
-            case 1: addPentagon(arr); break;
-            case 2: addHexagon(arr); break;
-            case 3: addOctagon(arr); break;
+        switch (ch) {
+            case 1: addPent(arr); break;
+            case 2: addHex(arr); break;
+            case 3: addOct(arr); break;
             case 4: showAll(arr); break;
-            case 5: deleteFig(arr); break;
+            case 5: delFig(arr); break;
             case 6: totalArea(arr); break;
             case 7: compare(arr); break;
             case 8: demo(arr); break;
             case 0: cout << "Bye\n"; break;
-            default: cout << "Invalid\n"; break;
+            default: cout << "Bad\n"; break;
         }
-    } while (choice != 0);
+    } while (ch != 0);
     
     return 0;
 }

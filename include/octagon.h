@@ -12,29 +12,29 @@ public:
             double a = 2 * 3.14159 * i / 8;
             T px = x + r * std::cos(a);
             T py = y + r * std::sin(a);
-            this->points.push_back(std::make_unique<Point<T>>(px, py));
+            this->p.push_back(std::make_unique<Point<T>>(px, py));
         }
     }
     
     Point<T> center() const override {
         T sx = 0, sy = 0;
-        for (auto& p : this->points) {
-            sx += p->x();
-            sy += p->y();
+        for (auto& pt : this->p) {
+            sx += pt->x();
+            sy += pt->y();
         }
         return Point<T>(sx/8, sy/8);
     }
     
     double area() const override {
-        if (this->points.size() != 8) return 0;
-        T s = dist(*this->points[0], *this->points[1]);
+        if (this->p.size() != 8) return 0;
+        T s = dist(*this->p[0], *this->p[1]);
         return 2.0 * (1.0 + std::sqrt(2.0)) * s * s;
     }
     
     void print() const override {
-        std::cout << "Octagon points: ";
-        for (auto& p : this->points) {
-            std::cout << *p << " ";
+        std::cout << "Octagon: ";
+        for (auto& pt : this->p) {
+            std::cout << *pt << " ";
         }
         std::cout << std::endl;
     }

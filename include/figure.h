@@ -8,7 +8,7 @@
 template<typename T>
 class Figure {
 protected:
-    std::vector<PointPtr<T>> points;
+    std::vector<PointPtr<T>> p;
 public:
     virtual ~Figure() = default;
     
@@ -19,12 +19,12 @@ public:
     
     explicit operator double() const { return area(); }
     
-    bool operator==(const Figure& other) const {
-        return area() == other.area();
+    bool operator==(const Figure& o) const {
+        return area() == o.area();
     }
     
-    bool operator<(const Figure& other) const {
-        return area() < other.area();
+    bool operator<(const Figure& o) const {
+        return area() < o.area();
     }
 };
 
